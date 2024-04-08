@@ -2,10 +2,16 @@ package com.analara.firstapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.analara.firstapp.databinding.ActivityMainBinding
 import com.analara.firstapp.databinding.FragmentCalculoBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
 
     private var _binding: ActivityMainBinding? = null
 
@@ -15,23 +21,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
 
-//    var email = binding.edtEmail2.editableText.toString()
-//    var telefone = binding.edtTelefone2.editableText.toString()
-//
-//    if (email.contains("@") && email.contains(".com")) {
-//        binding.tvEmail.text = "Email: " + email
-//
-//    } else {
-//        binding.tvEmail.text = "Email inválido: " + email
-//    }
-//
-//    if (telefone.length == 11) {
-//        binding.tvTelefone.text = "Telefone válido: " + telefone
-//
-//    } else {
-//        binding.tvTelefone.text = "Telefone inválido: " + telefone
-//
-//    }
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
 }
