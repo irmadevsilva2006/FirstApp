@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.analara.firstapp.databinding.ActivityMainBinding
-import com.analara.firstapp.databinding.FragmentCalculoBinding
+import com.analara.firstapp.databinding.FragmentPessoaBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration

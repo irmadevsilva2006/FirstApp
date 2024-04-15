@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.analara.firstapp.databinding.FragmentCalculoBinding
+import com.analara.firstapp.databinding.FragmentPessoaBinding
 import com.analara.firstapp.service.model.Pessoa
 import com.analara.firstapp.viewmodel.PessoaViewModel
 import java.time.LocalDateTime
@@ -15,15 +15,15 @@ import java.time.LocalDateTime
 class PessoaFragment : Fragment() {
     private val viewModel: PessoaViewModel by viewModels()
 
-    private var _binding: FragmentCalculoBinding? = null
+    private var _binding: FragmentPessoaBinding? = null
 
-    private val binding: FragmentCalculoBinding get() = _binding!!
+    private val binding: FragmentPessoaBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCalculoBinding.inflate(inflater, container, false)
+        _binding = FragmentPessoaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,18 +32,35 @@ class PessoaFragment : Fragment() {
         binding.btnEnviar.setOnClickListener {
             val nome = binding.edtNome.editableText.toString()
             var AnoNascimento = binding.edtAnoNascimento.editableText.toString()
+
+                var sexo = binding.edtSexo.editableText.toString()
+                var faixaEtaria = ""
+
+
             if (nome != "" && AnoNascimento != ""){
-                binding.tvNome.text = "Nome: " + nome
 
 
                 var anoAtual = LocalDateTime.now().year
                 var idade = 2024 - AnoNascimento.toInt()
 
-                binding.tvidade.text = "Idade: ${idade}"
+                if(idade < 12 ){
+                    faixaEtaria = "Criança"
+                }
+                else if (idade >= 13){
+                    faixaEtaria = "Adolescente"
+                }
+                else if (idade >= 65){
+                    faixaEtaria = "Adulto"
+                }
+                else {
+                    faixaEtaria = "Idoso"
+                }
 
                 val pessoa = Pessoa(
                     nome = nome,
-                    idade = idade
+                    idade = idade,
+                    sexo = sexo,
+                    faixaEtaria = faixaEtaria
                 )
 
                 viewModel.insert(pessoa)

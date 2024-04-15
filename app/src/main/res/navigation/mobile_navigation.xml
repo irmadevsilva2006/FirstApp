@@ -6,10 +6,10 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/calculoFragment"
+        android:id="@+id/pessoaFragment"
         android:name="com.analara.firstapp.view.PessoaFragment"
-        android:label="fragment_calculo"
-        tools:layout="@layout/fragment_calculo" />
+        android:label="Pessoa"
+        tools:layout="@layout/fragment_pessoa" />
     <fragment
         android:id="@+id/verificaFragment2"
         android:name="com.analara.firstapp.view.VerificaFragment"
@@ -18,6 +18,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.analara.firstapp.view.HomeFragment"
-        android:label="fragment_home"
+        android:label="First App"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/allPessoaFragment"
+        android:name="com.analara.firstapp.view.AllPessoaFragment"
+        android:label="Pessoas"
+        tools:layout="@layout/fragment_all_pessoa" />
 </navigation>

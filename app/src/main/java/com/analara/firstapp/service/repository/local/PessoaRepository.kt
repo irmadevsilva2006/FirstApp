@@ -10,11 +10,11 @@ class PessoaRepository(context: Context) {
         firstAppDb.insert(pessoa)
 
     }
-    suspend fun getPessoa(id: Int){
-        firstAppDb.getPessoa(id)
+    suspend fun getPessoa(id: Int): Pessoa {6
+        return firstAppDb.getPessoa(id)
     }
 
-    suspend fun  getPessoa(): List<Pessoa>{
+    suspend fun  getPessoas(): List<Pessoa>{
         return firstAppDb.getAll()
     }
 
