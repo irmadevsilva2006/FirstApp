@@ -1,5 +1,6 @@
 package com.analara.firstapp.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.analara.firstapp.databinding.FragmentPessoaBinding
 import com.analara.firstapp.service.model.Pessoa
 import com.analara.firstapp.viewmodel.PessoaViewModel
@@ -29,27 +31,39 @@ class PessoaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Carregar a pessoa caso tenha selecionado
+        arguments?.let {
+            viewModel.getPessoa(it.getInt("pessoaId"))
+        }
+
         binding.btnEnviar.setOnClickListener {
             val nome = binding.edtNome.editableText.toString()
-            var AnoNascimento = binding.edtAnoNascimento.editableText.toString()
+            var anoNascimento = binding.edtAnoNascimento.editableText.toString()
+            var faixaEtaria = ""
+            var sexo = ""
 
-                var sexo = binding.edtSexo.editableText.toString()
-                var faixaEtaria = ""
 
+            if (nome != "" && anoNascimento != "" &&
+                binding.rbMasculino.isChecked || binding.rbFeminino.isChecked){
 
-            if (nome != "" && AnoNascimento != ""){
+                if(binding.rbMasculino.isChecked){
+                    sexo = "Masculino"
+                } else{
+                    sexo = "Feminino"
+                }
 
 
                 var anoAtual = LocalDateTime.now().year
-                var idade = 2024 - AnoNascimento.toInt()
+                var idade = 2024 - anoNascimento.toInt()
 
                 if(idade < 12 ){
                     faixaEtaria = "Criança"
-                }
-                else if (idade >= 13){
+                    }
+                else if (idade >= 17){
                     faixaEtaria = "Adolescente"
                 }
-                else if (idade >= 65){
+                else if (idade < 64){
                     faixaEtaria = "Adulto"
                 }
                 else {
@@ -59,18 +73,49 @@ class PessoaFragment : Fragment() {
                 val pessoa = Pessoa(
                     nome = nome,
                     idade = idade,
-                    sexo = sexo,
-                    faixaEtaria = faixaEtaria
+                    faixaEtaria = faixaEtaria,
+                    sexo = sexo
                 )
 
-                viewModel.insert(pessoa)
+                viewModel.pessoa.value?.let{
+                    pessoa.id = it.id
+                    viewModel.update(pessoa)
+
+                } ?: run {
+                    viewModel.insert(pessoa)
+                }
+
                 binding.edtNome.editableText.clear()
                 binding.edtAnoNascimento.editableText.clear()
+                findNavController().navigateUp()
             }else{
                 Toast.makeText(requireContext(),"digite os dados", Toast.LENGTH_LONG).show()
             }
+        }
+
+        binding.btnDeletar.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Exclusão de pessoa")
+                .setMessage("Você realmente deseja excluir?")
+                .setPositiveButton("Sim"){_,_ ->
+                    viewModel.delete(viewModel.pessoa.value?.id ?: 0)
+                    findNavController().navigateUp()
+                }
+                .setNegativeButton("Não") {_,_ ->}
+                .show()
+        }
+
+        viewModel.pessoa.observe(viewLifecycleOwner){pessoa ->
+            binding.edtNome.setText(pessoa.nome)
+            binding.edtAnoNascimento.setText((LocalDateTime.now().year - pessoa.idade).toString())
+            if (pessoa.sexo == "Masculino"){
+                binding.rbMasculino.isChecked = true
+            } else{
+                binding.rbFeminino.isChecked = true
+            }
+
+            binding.btnDeletar.visibility = View.VISIBLE
 
         }
     }
-
 }

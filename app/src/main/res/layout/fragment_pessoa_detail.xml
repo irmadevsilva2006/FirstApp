@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.PessoaDetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imgBoy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginBottom="652dp"
+        android:src="@drawable/baseline_man_24"
+        android:tint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgGirl"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginBottom="652dp"
+        android:src="@drawable/baseline_woman_24"
+        android:tint="#E91E63"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="33dp" />
+
+    <TextView
+        android:id="@+id/tvIdade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idade:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="64dp" />
+
+    <TextView
+        android:id="@+id/tvAnoNascimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ano Nascimento:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="97dp" />
+
+    <TextView
+        android:id="@+id/tvFaixaEtaria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Faixa Etária:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

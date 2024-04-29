@@ -39,7 +39,11 @@ class AllPessoaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Quando clicar em algum item da lista
-        adapter = PessoaAdapter(viewModel.pessoaList.value){
+        adapter = PessoaAdapter(viewModel.pessoaList.value){pessoa ->
+            val pessoaBundle = Bundle()
+            pessoaBundle.putInt("pessoaId", pessoa.id)
+            arguments = pessoaBundle
+            findNavController().navigate(R.id.pessoaFragment, arguments)
 
         }
 
@@ -56,8 +60,10 @@ class AllPessoaFragment : Fragment() {
         binding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.pessoaFragment)
 
-            // Carregar as pessoas cadastradas
-            viewModel.loadPessoas()
+
         }
+
+        // Carregar as pessoas cadastradas
+        viewModel.loadPessoas()
     }
 }
